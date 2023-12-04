@@ -82,7 +82,7 @@ while True:
                 request.create_order(show_id, session_id, seat_plan_id, price, buy_count, deliver_method,
                                      express_fee["priceItemVal"], receiver,
                                      cellphone, address_id, detail_address, location_city_id, audience_ids)
-            elif deliver_method == "VENUE" or deliver_method == "E_TICKET":
+            elif deliver_method == "VENUE" or deliver_method == "E_TICKET" or deliver_method == "ID_CARD":
                 request.create_order(show_id, session_id, seat_plan_id, price, buy_count, deliver_method, 0, None,
                                      None, None, None, None, audience_ids)
             else:
