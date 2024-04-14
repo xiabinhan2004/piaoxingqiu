@@ -108,4 +108,7 @@ while True:
         print(e)
         session_id_exclude.append(session_id)  # 排除掉这个场次
         session_id = ''
-
+# 提示
+import winsound
+winsound.Beep(440, 5000)
+request.send_wechat(config.attk,config.show_id,config.uid)
