@@ -7,7 +7,9 @@ from config import token
 def get_sessions(show_id) -> list | None:
     headers = {
         'User-Agent': 'Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/86.0.4240.75 Mobile Safari/537.36',
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        'src': 'weixin_mini',
+        'terminal-src':'WEIXIN_MINI'
     }
     url = "https://m.piaoxingqiu.com/cyy_gatewayapi/show/pub/v3/show/" + show_id + "/sessions_dynamic_data"
     response = requests.get(url=url, headers=headers).json()
@@ -22,7 +24,9 @@ def get_sessions(show_id) -> list | None:
 def get_seat_plans(show_id, session_id) -> list:
     headers = {
         'User-Agent': 'Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/86.0.4240.75 Mobile Safari/537.36',
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        'src': 'weixin_mini',
+        'terminal-src':'WEIXIN_MINI'
     }
     url = "https://m.piaoxingqiu.com/cyy_gatewayapi/show/pub/v3/show/" + show_id + "/show_session/" + session_id + "/seat_plans_static_data"
     response = requests.get(url=url, headers=headers).json()
@@ -36,7 +40,9 @@ def get_seat_plans(show_id, session_id) -> list:
 def get_seat_count(show_id, session_id) -> list:
     headers = {
         'User-Agent': 'Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/86.0.4240.75 Mobile Safari/537.36',
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        'src': 'weixin_mini',
+        'terminal-src':'WEIXIN_MINI'
     }
     url = "https://m.piaoxingqiu.com/cyy_gatewayapi/show/pub/v3/show/" + show_id + "/show_session/" + session_id + "/seat_plans_dynamic_data"
     response = requests.get(url=url, headers=headers).json()
@@ -51,7 +57,10 @@ def get_deliver_method(show_id, session_id, seat_plan_id, price: int, qty: int) 
     headers = {
         'User-Agent': 'Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/86.0.4240.75 Mobile Safari/537.36',
         'Content-Type': 'application/json',
+        'src': 'weixin_mini',
+        'terminal-src':'WEIXIN_MINI',
         'access-token': token
+        
     }
     data = {
         "items": [
@@ -87,6 +96,8 @@ def get_audiences() -> list | None:
     headers = {
         'User-Agent': 'Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/86.0.4240.75 Mobile Safari/537.36',
         'Content-Type': 'application/json',
+        'src': 'weixin_mini',
+        'terminal-src':'WEIXIN_MINI',
         'access-token': token
     }
     url = "https://m.piaoxingqiu.com/cyy_gatewayapi/user/buyer/v3/user_audiences"
@@ -103,6 +114,8 @@ def get_address() -> dict | None:
     headers = {
         'User-Agent': 'Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/86.0.4240.75 Mobile Safari/537.36',
         'Content-Type': 'application/json',
+        'src': 'weixin_mini',
+        'terminal-src':'WEIXIN_MINI',
         'access-token': token
     }
     url = "https://m.piaoxingqiu.com/cyy_gatewayapi/user/buyer/v3/user/addresses/default"
@@ -119,6 +132,8 @@ def get_express_fee(show_id, session_id, seat_plan_id, price: int, qty: int, loc
     headers = {
         'User-Agent': 'Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/86.0.4240.75 Mobile Safari/537.36',
         'Content-Type': 'application/json',
+        'src': 'weixin_mini',
+        'terminal-src':'WEIXIN_MINI',
         'access-token': token
     }
     data = {
@@ -159,6 +174,8 @@ def create_order(show_id, session_id, seat_plan_id, price: int, qty: int, delive
     headers = {
         'User-Agent': 'Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/86.0.4240.75 Mobile Safari/537.36',
         'Content-Type': 'application/json',
+        'src': 'weixin_mini',
+        'terminal-src':'WEIXIN_MINI',
         'access-token': token
     }
     if deliver_method == "EXPRESS":
