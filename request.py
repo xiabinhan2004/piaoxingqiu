@@ -365,5 +365,7 @@ def create_order(show_id, session_id, seat_plan_id, price: int, qty: int, delive
     response = requests.post(url=url, headers=headers, json=data).json()
     if response["statusCode"] == 200:
         print("下单成功！请尽快支付！")
+        import winsound
+        winsound.Beep(440, 5000)
     else:
         raise Exception("下单异常:" + str(response))

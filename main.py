@@ -5,6 +5,7 @@ import config
 目前仅支持【无需选座】的项目
 '''
 show_id = config.show_id
+data_id=config.data_id
 session_id = config.session_id
 buy_count = config.buy_count
 audience_idx = config.audience_idx
