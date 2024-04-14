@@ -10,7 +10,8 @@ session_id = config.session_id
 buy_count = config.buy_count
 audience_idx = config.audience_idx
 deliver_method = config.deliver_method
-set_price= config.set_price
+price_id= config.price_id   #从从最低票档开始数
+functional=config.functional#是否自定义票档 
 seat_plan_id = ''
 session_id_exclude = []  # 被排除掉的场次
 price = 0
@@ -42,15 +43,23 @@ while True:
         seat_plans = request.get_seat_plans(show_id, session_id)
         seat_count = request.get_seat_count(show_id, session_id)
         print(seat_count)
-
-        for i in seat_count:
-            if i["canBuyCount"] >= buy_count:
-                seat_plan_id = i["seatPlanId"]
+        # 自定义票档
+        if functional and price_id is not None:
+            if seat_count[price_id]["canBuyCount"] >= buy_count:
+                seat_plan_id = seat_count[price_id]["seatPlanId"]
                 for j in seat_plans:
                     if j["seatPlanId"] == seat_plan_id:
-                        price = j["originalPrice"]  # 门票单价
-                        break
-                break
+                        price = j["originalPrice"]
+
+        else:
+            for i in seat_count:
+                if i["canBuyCount"] >= buy_count:
+                    seat_plan_id = i["seatPlanId"]
+                    for j in seat_plans:
+                        if j["seatPlanId"] == seat_plan_id:
+                            price = j["originalPrice"]  # 门票单价
+                            break
+                    break
         # 如果没有拿到seat_plan_id，说明该场次所有座位的余票都不满足购票数量需求，就重新开始刷下一场次
         if not seat_plan_id:
             print("该场次" + session_id + "没有符合条件的座位，将为你继续搜寻其他在售场次")
