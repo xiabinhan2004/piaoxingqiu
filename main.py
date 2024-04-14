@@ -10,6 +10,7 @@ session_id = config.session_id
 buy_count = config.buy_count
 audience_idx = config.audience_idx
 deliver_method = config.deliver_method
+set_price= config.set_price
 seat_plan_id = ''
 session_id_exclude = []  # 被排除掉的场次
 price = 0
@@ -22,16 +23,21 @@ while True:
             while True:
                 sessions = request.get_sessions(show_id)
                 if sessions:
-                    for i in sessions:
-                        if i["sessionStatus"] == 'ON_SALE' and i["bizShowSessionId"] not in session_id_exclude:
-                            session_id = i["bizShowSessionId"]
-                            print("session_id:" + session_id)
-                            break
-                    if session_id:
+                    if data_id is not None:
+                        session_id = sessions[data_id]["bizShowSessionId"]
+                        print("session_id:" + session_id)
                         break
                     else:
-                        print("未获取到在售状态且符合购票数量需求的session_id")
-                        session_id_exclude = []  # 再给自己一次机会，万一被排除掉的场次又放票了呢
+                        for i in sessions:
+                            if i["sessionStatus"] == 'ON_SALE' and i["bizShowSessionId"] not in session_id_exclude:
+                                session_id = i["bizShowSessionId"]
+                                print("session_id:" + session_id)
+                                break
+                        if session_id:
+                            break
+                        else:
+                            print("未获取到在售状态且符合购票数量需求的session_id")
+                            session_id_exclude = []  # 再给自己一次机会，万一被排除掉的场次又放票了呢
         # 获取座位余票信息，默认从最低价开始
         seat_plans = request.get_seat_plans(show_id, session_id)
         seat_count = request.get_seat_count(show_id, session_id)
