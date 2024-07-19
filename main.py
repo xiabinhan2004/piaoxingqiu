@@ -1,6 +1,6 @@
 import request
 import config
-
+from time import sleep
 '''
 目前仅支持【无需选座】的项目
 '''
@@ -63,6 +63,7 @@ while True:
         # 如果没有拿到seat_plan_id，说明该场次所有座位的余票都不满足购票数量需求，就重新开始刷下一场次
         if not seat_plan_id:
             print("该场次" + session_id + "没有符合条件的座位，将为你继续搜寻其他在售场次")
+            sleep(3)
             session_id_exclude.append(session_id)  # 排除掉这个场次
             session_id = ''
             continue
@@ -73,7 +74,7 @@ while True:
 
         if deliver_method == "VENUE_E":
             request.create_order(show_id, session_id, seat_plan_id, price, buy_count, deliver_method, 0, None,
-                                 None, None, None, None, [])
+                                  None, None, None, None, [])
         else:
             # 获取观演人信息
             audiences = request.get_audiences()

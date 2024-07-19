@@ -1,6 +1,7 @@
 import requests
 
 from config import token
+from time import sleep
 
 
 # 根据项目id获取所有场次和在售状态
@@ -380,11 +381,16 @@ def create_order(show_id, session_id, seat_plan_id, price: int, qty: int, delive
 
     url = "https://m.piaoxingqiu.com/cyy_gatewayapi/trade/buyer/order/v3/create_order"
     response = requests.post(url=url, headers=headers, json=data).json()
+    sleep(2)
     if response["statusCode"] == 200:
         print("下单成功！请尽快支付！")
 
     else:
+        import main
+        main.seat_plan_id=''
         raise Exception("下单异常:" + str(response))
+        
+        
     
 def send_wechat(token,content,uid):
     body={
